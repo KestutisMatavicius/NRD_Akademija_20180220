@@ -5,6 +5,6 @@ namespace akademija.Application.main.employee
 {
     public interface IEmployeeService
     {
-        List<Employee> GetAllEmployee();
+        IEnumerable<Employee> GetAllEmployee();
     }
 }

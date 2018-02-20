@@ -12,7 +12,7 @@ namespace akademija.Application.main.employee
             _employeeRepository = employeeRepository;
         }
 
-        public List<Employee> GetAllEmployee()
+        public IEnumerable<Employee> GetAllEmployee()
         {
             var list = _employeeRepository.GetAll();
             return list;

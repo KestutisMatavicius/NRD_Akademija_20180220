@@ -5,12 +5,12 @@ using System.Collections.Generic;
 
 namespace akademija.Web.Controllers.employee
 {
-    [Route("api/employee/[controller]")]
-    public class EmployeeController : Controller
+    [Route("/[controller]")]
+    public class EmployeesController : Controller
     {
         protected readonly IEmployeeService _service;
 
-        public EmployeeController(IEmployeeService service)
+        public EmployeesController(IEmployeeService service)
         {
             _service = service;
         }
