@@ -1,4 +1,6 @@
-﻿using akademija.EF;
+﻿using akademija.Application.main.employee;
+using akademija.EF;
+using akademija.EF.repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +23,9 @@ namespace akademija.Web
         {
             services.AddDbContext<NrdAkademijaDbContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("AkademijaDatabase")));
+            services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+
             services.AddMvc();
         }
 
