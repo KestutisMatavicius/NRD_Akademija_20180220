@@ -25,7 +25,7 @@ namespace akademija.Web
         options.UseSqlServer(Configuration.GetConnectionString("AkademijaDatabase")));
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-
+            services.AddCors();
             services.AddMvc();
         }
 
