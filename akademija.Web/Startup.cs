@@ -36,7 +36,10 @@ namespace akademija.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:4200")
+           .AllowAnyHeader()
+    );
             app.UseMvc();
         }
     }
