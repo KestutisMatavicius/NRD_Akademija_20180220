@@ -1,4 +1,4 @@
-﻿using akademija.Application.main.employeeInventory.dto;
+﻿using akademija.Application.main.inventory.dto;
 using System.Collections.Generic;
 
 namespace akademija.Application.main.employee.dto
@@ -7,7 +7,7 @@ namespace akademija.Application.main.employee.dto
     {
         public EmployeeDto()
         {
-            EmployeeInventory = new HashSet<EmployeeInventoryDto>();
+            Inventory = new HashSet<InventoryViewDto>();
         }
 
         public int Id { get; set; }
@@ -15,6 +15,6 @@ namespace akademija.Application.main.employee.dto
         public string Email { get; set; }
         public string Workplace { get; set; }
 
-        public ICollection<EmployeeInventoryDto> EmployeeInventory { get; set; }
+        public ICollection<InventoryViewDto> Inventory { get; set; }
     }
 }

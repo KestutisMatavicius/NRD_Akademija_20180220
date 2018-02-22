@@ -1,6 +1,9 @@
-﻿using akademija.Application.main.employee;
+﻿using akademija.Application.automapper;
+using akademija.Application.main.employee;
+using akademija.Application.main.inventory;
 using akademija.EF;
 using akademija.EF.repositories;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +28,9 @@ namespace akademija.Web
         options.UseSqlServer(Configuration.GetConnectionString("AkademijaDatabase")));
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IInventoryService, InventoryService>();
+            services.AddScoped<IInventoryRepository, InventoryRepository>();
+            services.AddAutoMapper(x => x.AddProfile(new MappingsProfile()));
             services.AddCors();
             services.AddMvc();
         }

@@ -1,5 +1,5 @@
 ﻿using akademija.Application.main.employee;
-using akademija.EF.entities;
+using akademija.Application.main.employee.dto;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -16,7 +16,7 @@ namespace akademija.Web.Controllers.employee
         }
         // GET api/values
         [HttpGet]
-        public IEnumerable<Employee> Get()
+        public IEnumerable<EmployeeDto> Get()
         {
             return _service.GetAllEmployee();
         }

@@ -1,4 +1,7 @@
 ﻿using akademija.EF.entities;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace akademija.EF.repositories
 {
@@ -6,6 +9,14 @@ namespace akademija.EF.repositories
     {
         public EmployeeRepository(NrdAkademijaDbContext context) : base(context)
         {
+        }
+
+        public List<Employee> GetEmployees()
+        {
+            return NrdAkademijaDbContext.Employee
+                .Include(c => c.EmployeeInventory)
+                .ThenInclude(c => c.Inventory)
+                .ToList();
         }
 
         public NrdAkademijaDbContext NrdAkademijaDbContext
