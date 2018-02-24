@@ -1,4 +1,7 @@
 ﻿using akademija.EF.entities;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace akademija.EF.repositories
 {
@@ -8,14 +11,12 @@ namespace akademija.EF.repositories
         {
         }
 
-        //public List<Inventory> GetAllUserInventory(int id)
-        //{
-        //    return NrdAkademijaDbContext.Inventory
-        //        .Include(c => c.EmployeeInventory)
-        //        .Where(e => e.Id == id).ToList();
+        public List<Inventory> GetInventory()
+        {
+            return NrdAkademijaDbContext.Inventory
+              .Include(c => c.TypeNavigation).ToList();
 
-
-        //}
+        }
 
         public NrdAkademijaDbContext NrdAkademijaDbContext
         {

@@ -18,8 +18,8 @@ namespace akademija.Application.main.employee
         public IEnumerable<EmployeeDto> GetAllEmployee()
         {
             var list = _employeeRepository.GetEmployees();
-            var blogDto = _iMapper.Map<List<EmployeeDto>>(list);
-            return blogDto;
+            var listDto = _iMapper.Map<List<EmployeeDto>>(list);
+            return listDto;
         }
     }
 }

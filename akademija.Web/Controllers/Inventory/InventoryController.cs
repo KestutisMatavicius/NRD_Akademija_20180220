@@ -1,7 +1,7 @@
 ﻿using akademija.Application.main.inventory;
+using akademija.Application.main.inventory.dto;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-
 
 namespace akademija.Web.Controllers.Inventory
 {
@@ -16,9 +16,9 @@ namespace akademija.Web.Controllers.Inventory
         }
 
         [HttpGet]
-        public IEnumerable<akademija.EF.entities.Inventory> Get()
+        public IEnumerable<InventoryDto> Get()
         {
-            return _service.GetUserInventory(2);
+            return _service.GetAll();
         }
     }
 }

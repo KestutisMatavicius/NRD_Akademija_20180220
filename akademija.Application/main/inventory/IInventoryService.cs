@@ -1,4 +1,4 @@
-﻿using akademija.EF.entities;
+﻿using akademija.Application.main.inventory.dto;
 using System.Collections.Generic;
 
 namespace akademija.Application.main.inventory
@@ -6,6 +6,6 @@ namespace akademija.Application.main.inventory
 
     public interface IInventoryService
     {
-        IEnumerable<Inventory> GetUserInventory(int id);
+        IEnumerable<InventoryDto> GetAll();
     }
 }

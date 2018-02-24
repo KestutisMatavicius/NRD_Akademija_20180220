@@ -1,6 +1,7 @@
 ﻿using akademija.Application.automapper;
 using akademija.Application.main.employee;
 using akademija.Application.main.inventory;
+using akademija.Application.main.inventoryType;
 using akademija.EF;
 using akademija.EF.repositories;
 using AutoMapper;
@@ -30,6 +31,8 @@ namespace akademija.Web
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IInventoryService, InventoryService>();
             services.AddScoped<IInventoryRepository, InventoryRepository>();
+            services.AddScoped<IInventoryTypeService, InventoryTypeService>();
+            services.AddScoped<IInventoryTypeRepository, InventoryTypeRepository>();
             services.AddAutoMapper(x => x.AddProfile(new MappingsProfile()));
             services.AddCors();
             services.AddMvc();
