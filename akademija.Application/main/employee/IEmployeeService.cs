@@ -5,6 +5,9 @@ namespace akademija.Application.main.employee
 {
     public interface IEmployeeService
     {
-        IEnumerable<EmployeeDto> GetAllEmployee();
+        IEnumerable<EmployeeDto> GetAllEmployees();
+        EmployeeDto GetEmployee(int id);
+        void DeleteEmployee(int id);
+        void Save(EmployeeDto item);
     }
 }

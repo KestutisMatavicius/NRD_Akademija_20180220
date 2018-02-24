@@ -14,11 +14,29 @@ namespace akademija.Web.Controllers.employee
         {
             _service = service;
         }
-        // GET api/values
+        // GET employees
         [HttpGet]
         public IEnumerable<EmployeeDto> Get()
         {
-            return _service.GetAllEmployee();
+            return _service.GetAllEmployees();
+        }
+
+        [HttpGet("{id}")]
+        public EmployeeDto Get(int id)
+        {
+            return _service.GetEmployee(id);
+        }
+
+        [HttpDelete("{id}")]
+        public void Del(int id)
+        {
+            _service.DeleteEmployee(id);
+        }
+
+        [HttpPost]
+        public void Save([FromBody] EmployeeDto item)
+        {
+            //_service.DeleteEmployee();
         }
     }
 }

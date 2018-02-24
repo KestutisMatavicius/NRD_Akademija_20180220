@@ -19,6 +19,34 @@ namespace akademija.EF.repositories
                 .ToList();
         }
 
+        public Employee GetEmployee(int id)
+        {
+            return NrdAkademijaDbContext.Employee
+                .Include(c => c.EmployeeInventory)
+                .ThenInclude(c => c.Inventory)
+                .SingleOrDefault(c => c.Id == id);
+
+        }
+
+        public void DeleteEmployee(int id)
+        {
+            var employee = NrdAkademijaDbContext.Employee.Include(a => a.EmployeeInventory).ThenInclude(c => c.Inventory)
+    .SingleOrDefault(a => a.Id == id);
+
+            if (employee != null)
+            {
+                foreach (var employeeInventory in employee.EmployeeInventory)
+                {
+                    NrdAkademijaDbContext.EmployeeInventory.Remove(employeeInventory);
+                    employeeInventory.Inventory.Taken = employeeInventory.Inventory.Taken - 1;
+
+                }
+                NrdAkademijaDbContext.Employee.Remove(employee);
+                NrdAkademijaDbContext.SaveChanges();
+            }
+
+        }
+
         public NrdAkademijaDbContext NrdAkademijaDbContext
         {
             get { return Context as NrdAkademijaDbContext; }

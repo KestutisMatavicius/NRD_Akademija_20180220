@@ -15,11 +15,29 @@ namespace akademija.Application.main.employee
             _iMapper = iMapper;
         }
 
-        public IEnumerable<EmployeeDto> GetAllEmployee()
+        public IEnumerable<EmployeeDto> GetAllEmployees()
         {
             var list = _employeeRepository.GetEmployees();
             var listDto = _iMapper.Map<List<EmployeeDto>>(list);
             return listDto;
+        }
+
+        public EmployeeDto GetEmployee(int id)
+        {
+            var item = _employeeRepository.GetEmployee(id);
+            var itemDto = _iMapper.Map<EmployeeDto>(item);
+            return itemDto;
+        }
+
+        public void DeleteEmployee(int id)
+        {
+            _employeeRepository.DeleteEmployee(id);
+        }
+
+        public void Save(EmployeeDto item)
+        {
+
+
         }
     }
 }
