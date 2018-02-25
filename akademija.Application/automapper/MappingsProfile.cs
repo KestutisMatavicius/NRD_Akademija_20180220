@@ -11,12 +11,20 @@ namespace akademija.Application.automapper
     {
         public MappingsProfile()
         {
-            CreateMap<Employee, EmployeeDto>();
+            //CreateMap<Employee, EmployeeDto>();
             CreateMap<Employee, EmployeeDto>()
                 .ForMember(dto => dto.Inventory, opt => opt.MapFrom(x => x.EmployeeInventory.Select(y => y.Inventory).ToList()));
             CreateMap<Inventory, InventoryViewDto>();
-            CreateMap<Inventory, InventoryDto>();
+            CreateMap<Inventory, InventoryDto>().ReverseMap();
             CreateMap<InventoryType, InventoryTypeDto>();
+
+
+            CreateMap<InventoryViewDto, EmployeeInventory>()
+    .ForMember(cr => cr.InventoryId, opt => opt.MapFrom(c => c.Id));
+
+
+            CreateMap<EmployeeDto, Employee>()
+             .ForMember(e => e.EmployeeInventory, opt => opt.MapFrom(x => x.Inventory));
 
         }
     }

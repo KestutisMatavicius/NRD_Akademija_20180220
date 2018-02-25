@@ -8,5 +8,6 @@ namespace akademija.EF.repositories
         List<Employee> GetEmployees();
         Employee GetEmployee(int id);
         void DeleteEmployee(int id);
+        void SaveEmployee(Employee item);
     }
 }

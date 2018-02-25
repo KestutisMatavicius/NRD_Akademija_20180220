@@ -34,9 +34,10 @@ namespace akademija.Web.Controllers.employee
         }
 
         [HttpPost]
-        public void Save([FromBody] EmployeeDto item)
+        public IActionResult Save([FromBody] EmployeeDto item)
         {
-            //_service.DeleteEmployee();
+            _service.Save(item);
+            return Ok();
         }
     }
 }

@@ -47,6 +47,20 @@ namespace akademija.EF.repositories
 
         }
 
+
+        public void SaveEmployee(Employee item)
+        {
+
+            NrdAkademijaDbContext.Employee.Add(item);
+            foreach (var inventory in item.EmployeeInventory)
+            {
+                var taken = NrdAkademijaDbContext.Inventory.SingleOrDefault(i => i.Id == inventory.InventoryId).Taken;
+                taken = taken - 1;
+            }
+            NrdAkademijaDbContext.SaveChanges();
+
+        }
+
         public NrdAkademijaDbContext NrdAkademijaDbContext
         {
             get { return Context as NrdAkademijaDbContext; }

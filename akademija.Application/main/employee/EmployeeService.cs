@@ -1,4 +1,5 @@
 ﻿using akademija.Application.main.employee.dto;
+using akademija.EF.entities;
 using akademija.EF.repositories;
 using AutoMapper;
 using System.Collections.Generic;
@@ -36,7 +37,8 @@ namespace akademija.Application.main.employee
 
         public void Save(EmployeeDto item)
         {
-
+            var employee = _iMapper.Map<Employee>(item);
+            _employeeRepository.SaveEmployee(employee);
 
         }
     }
