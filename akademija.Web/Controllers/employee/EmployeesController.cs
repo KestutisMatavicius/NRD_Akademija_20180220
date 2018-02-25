@@ -28,9 +28,10 @@ namespace akademija.Web.Controllers.employee
         }
 
         [HttpDelete("{id}")]
-        public void Del(int id)
+        public IActionResult Del(int id)
         {
             _service.DeleteEmployee(id);
+            return new NoContentResult();
         }
 
         [HttpPost]
