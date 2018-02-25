@@ -22,9 +22,14 @@ namespace akademija.Web.Controllers.employee
         }
 
         [HttpGet("{id}")]
-        public EmployeeDto Get(int id)
+        public IActionResult Get(int id)
         {
-            return _service.GetEmployee(id);
+            var item = _service.GetEmployee(id);
+            if (item == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(item);
         }
 
         [HttpDelete("{id}")]
