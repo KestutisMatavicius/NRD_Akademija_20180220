@@ -15,7 +15,7 @@ namespace akademija.Web.Controllers.employee
             _service = service;
         }
         // GET employees
-        [HttpGet]
+        [HttpGet(Name = "GetAllEmployees")]
         public IEnumerable<EmployeeDto> Get()
         {
             return _service.GetAllEmployees();
@@ -35,15 +35,41 @@ namespace akademija.Web.Controllers.employee
         [HttpDelete("{id}")]
         public IActionResult Del(int id)
         {
-            _service.DeleteEmployee(id);
-            return new NoContentResult();
+
+
+            try
+            {
+                var employee = _service.GetEmployee(id);
+                if (employee == null) return NotFound($"Darbuotojas, kurio id yra {id} nerastas");
+                _service.DeleteEmployee(id);
+                return new NoContentResult();
+            }
+            catch (System.Exception)
+            {
+
+
+            }
+            return BadRequest();
+
         }
 
         [HttpPost]
         public IActionResult Save([FromBody] EmployeeDto item)
         {
-            _service.Save(item);
-            return Ok();
+            //_service.Save(item);
+            //return Ok();
+            try
+            {
+                _service.Save(item);
+                string newUri = Url.Link("GetAllEmployees", new { id = item.Id });
+                return Created(newUri, item);
+
+            }
+            catch (System.Exception)
+            {
+
+            }
+            return BadRequest();
         }
     }
 }

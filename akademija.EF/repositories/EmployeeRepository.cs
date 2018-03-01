@@ -54,8 +54,8 @@ namespace akademija.EF.repositories
             NrdAkademijaDbContext.Employee.Add(item);
             foreach (var inventory in item.EmployeeInventory)
             {
-                var taken = NrdAkademijaDbContext.Inventory.SingleOrDefault(i => i.Id == inventory.InventoryId).Taken;
-                taken = taken - 1;
+                var inv = NrdAkademijaDbContext.Inventory.SingleOrDefault(i => i.Id == inventory.InventoryId);
+                inv.Taken = inv.Taken + 1;
             }
             NrdAkademijaDbContext.SaveChanges();
 

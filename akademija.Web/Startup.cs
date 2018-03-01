@@ -10,24 +10,41 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace akademija.Web
 {
     public class Startup
     {
+
+        /*public IConfiguration _configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
+        }*/
+
+        IConfigurationRoot _config;
+        private IHostingEnvironment _env;
+        public IConfiguration _configuration { get; }
+
+        public Startup(IHostingEnvironment env, IConfiguration configuration)
+        {
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            _env = env;
+            _config = builder.Build();
+            _configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<NrdAkademijaDbContext>(options =>
-        options.UseSqlServer(Configuration.GetConnectionString("AkademijaDatabase")));
+        options.UseSqlServer(_configuration.GetConnectionString("AkademijaDatabase")));
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IInventoryService, InventoryService>();
@@ -44,8 +61,10 @@ namespace akademija.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory logger)
         {
+            logger.AddConsole(_configuration.GetSection("Logging"));
+            logger.AddDebug();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
