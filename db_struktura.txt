@@ -1,0 +1,52 @@
+CREATE TABLE [dbo].[Inventory_Type] (
+    [Id]  INT primary key,
+    [Name] NVARCHAR (MAX) NOT NULL
+);
+
+CREATE TABLE [dbo].[Inventory] (
+    [Id]  INT primary key,
+    [Name] NVARCHAR (MAX) NOT NULL,
+	[Amount] INT,
+	[Taken] INT,
+	[Type] INT foreign key references Inventory_Type(Id)
+);
+
+CREATE TABLE [dbo].[Employee] (
+    [Id]  INT            IDENTITY (1, 1) NOT NULL,
+    [FirstName] NVARCHAR (MAX) NOT NULL,
+	[Email] NVARCHAR (MAX) NOT NULL,
+	[Workplace] NVARCHAR (MAX) NOT NULL,
+	CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[EmployeeInventory] (
+    [EmployeeId] INT NOT NULL foreign key references Employee(Id),
+	[InventoryId] INT NOT NULL foreign key references Inventory(Id),
+	primary key (InventoryId, EmployeeId)
+);
+
+insert into [dbo].[Inventory_Type] (id,name) values(1,'Monitor');
+insert into [dbo].[Inventory_Type] (id,name) values(2,'Keyboard');
+insert into [dbo].[Inventory_Type] (id,name) values(3,'Mouse');
+insert into [dbo].[Inventory_Type] (id,name) values(4,'Computer');
+
+
+
+insert into [dbo].[Inventory] (id,name, amount, taken, type) values(1,'Dell monitor',5,5,1);
+insert into [dbo].[Inventory] (id,name, amount, taken, type) values(2,'Asus monitor',10,2,1);
+insert into [dbo].[Inventory] (id,name, amount, taken, type) values(3,'Logitech mouse',12,4,3);
+insert into [dbo].[Inventory] (id,name, amount, taken, type) values(4,'Dell computer',4,2,4);
+insert into [dbo].[Inventory] (id,name, amount, taken, type) values(5,'Logitech keyboard',5,2,2);
+insert into [dbo].[Inventory] (id,name, amount, taken, type) values(6,'Samsung monitor',4,3,1);
+
+
+
+insert into [dbo].[Employee] (FirstName,Email,WorkPlace) values('Kęstutis','kma@nrd.lt','Kaunas office');
+
+insert into [dbo].[EmployeeInventory] (EmployeeId,InventoryId) values(1002,1);
+insert into [dbo].[EmployeeInventory] (EmployeeId,InventoryId) values(1002,2);
+insert into [dbo].[EmployeeInventory] (EmployeeId,InventoryId) values(1002,3);
+insert into [dbo].[EmployeeInventory] (EmployeeId,InventoryId) values(1002,4);
+
+
+
