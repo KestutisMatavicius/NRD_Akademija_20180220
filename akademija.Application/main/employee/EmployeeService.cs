@@ -41,5 +41,12 @@ namespace akademija.Application.main.employee
             _employeeRepository.SaveEmployee(employee);
 
         }
+
+        public void Update(int id, EmployeeDto item)
+        {
+            var employee = _iMapper.Map<Employee>(item);
+            _employeeRepository.UpdateEmployee(id, employee);
+
+        }
     }
 }

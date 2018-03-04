@@ -1,7 +1,7 @@
 ﻿using akademija.Application.main.employee;
 using akademija.Application.main.employee.dto;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+using System;
 
 namespace akademija.Web.Controllers.employee
 {
@@ -16,9 +16,11 @@ namespace akademija.Web.Controllers.employee
         }
         // GET employees
         [HttpGet(Name = "GetAllEmployees")]
-        public IEnumerable<EmployeeDto> Get()
+        public IActionResult Get()
         {
-            return _service.GetAllEmployees();
+
+            var employees = _service.GetAllEmployees();
+            return Ok(employees);
         }
 
         [HttpGet("{id}")]
@@ -70,6 +72,23 @@ namespace akademija.Web.Controllers.employee
 
             }
             return BadRequest();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, [FromBody] EmployeeDto item)
+        {
+            try
+            {
+                _service.Update(id, item);
+                string newUri = Url.Link("GetAllEmployees", new { id = item.Id });
+                return Created(newUri, item);
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return BadRequest("");
         }
     }
 }

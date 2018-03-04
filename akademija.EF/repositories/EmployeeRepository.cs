@@ -61,6 +61,38 @@ namespace akademija.EF.repositories
 
         }
 
+        public void UpdateEmployee(int id, Employee item)
+        {
+            var oldEmployee = GetEmployee(id);
+            oldEmployee.Email = item.Email;
+            oldEmployee.FirstName = item.FirstName;
+            oldEmployee.Workplace = item.Workplace;
+
+
+            List<int> oldInventoryIdList = oldEmployee.EmployeeInventory.Select(p => p.InventoryId).ToList();
+            List<int> newInventoryIdList = item.EmployeeInventory.Select(p => p.InventoryId).ToList();
+            List<int> newAdded = newInventoryIdList.Except(oldInventoryIdList).ToList();
+            List<int> oldRemoved = oldInventoryIdList.Except(newInventoryIdList).ToList();
+
+            foreach (int newId in newAdded)
+            {
+                var inventory = NrdAkademijaDbContext.Inventory.SingleOrDefault(p => p.Id == newId);
+                oldEmployee.EmployeeInventory.Add(new EmployeeInventory() { InventoryId = inventory.Id });
+                var inv = NrdAkademijaDbContext.Inventory.SingleOrDefault(p => p.Id == newId);
+                inv.Taken = inv.Taken + 1;
+            }
+
+            foreach (var oldId in oldRemoved)
+            {
+                var oldInventory = oldEmployee.EmployeeInventory.SingleOrDefault(p => p.InventoryId == oldId);
+                oldEmployee.EmployeeInventory.Remove(oldInventory);
+                var inv = NrdAkademijaDbContext.Inventory.SingleOrDefault(p => p.Id == oldId);
+                inv.Taken = inv.Taken - 1;
+            }
+
+            NrdAkademijaDbContext.SaveChanges();
+        }
+
         public NrdAkademijaDbContext NrdAkademijaDbContext
         {
             get { return Context as NrdAkademijaDbContext; }

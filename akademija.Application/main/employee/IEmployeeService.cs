@@ -9,5 +9,6 @@ namespace akademija.Application.main.employee
         EmployeeDto GetEmployee(int id);
         void DeleteEmployee(int id);
         void Save(EmployeeDto item);
+        void Update(int id, EmployeeDto item);
     }
 }
