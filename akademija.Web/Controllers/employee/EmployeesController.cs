@@ -58,8 +58,7 @@ namespace akademija.Web.Controllers.employee
         [HttpPost]
         public IActionResult Save([FromBody] EmployeeDto item)
         {
-            //_service.Save(item);
-            //return Ok();
+            if (!ModelState.IsValid) return BadRequest(ModelState);
             try
             {
                 _service.Save(item);
